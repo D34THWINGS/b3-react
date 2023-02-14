@@ -1,0 +1,11 @@
+version: '2'
+services:
+  mongodb:
+    tty: true
+    image: 'mongo:latest'
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - '27017:27017'
+volumes:
+  mongodb:
