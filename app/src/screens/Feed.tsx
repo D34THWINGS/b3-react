@@ -2,8 +2,11 @@ import {Title} from "../components/Title";
 import {NavBar} from "../components/NavBar";
 import {ChatWrapper} from "../components/Chat/ChatWrapper";
 import {ChatMessage} from "../components/Chat/ChatMessage";
+import {useLoaderData} from "react-router-dom";
 
 export function Feed() {
+  const data = useLoaderData()
+  console.log(data)
   return (
     <>
       <NavBar/>

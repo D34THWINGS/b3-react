@@ -8,7 +8,7 @@
     "start": "NODE_OPTIONS=\"--experimental-specifier-resolution=node --loader ts-node/esm\" node --inspect --watch src/server.ts",
     "start:windows": "ts-node --esm --experimental-specifier-resolution=node src/server.ts",
     "test": "jest",
-    "release": "prisma generate && prisma migrate deploy"
+    "release": "prisma generate"
   },
   "author": "",
   "license": "MIT",
