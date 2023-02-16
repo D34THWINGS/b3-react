@@ -5,7 +5,7 @@ import {ChatMessage} from "../components/Chat/ChatMessage";
 import {useLoaderData} from "react-router-dom";
 
 export function Feed() {
-  const data = useLoaderData()
+  const data = useLoaderData() as { id: number, title: string }[]
   console.log(data)
   return (
     <>
