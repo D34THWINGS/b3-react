@@ -11,7 +11,11 @@ export function Feed() {
     <>
       <NavBar/>
       <Title>Feed</Title>
-      <i id="chat-status"/>
+
+      {data.map(post => (
+        <div key={post.id}>{post.title}</div>
+      ))}
+
       <ChatWrapper>
         <ChatMessage
           author="Bibi"

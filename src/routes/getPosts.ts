@@ -1,7 +1,7 @@
 import {Application} from "express-ws";
 
 export function getPosts(app: Application) {
-  app.get('/posts', (req, res) => {
+  app.get('/api/v1/posts', (req, res) => {
     res.send([
       {
         id: 1,
@@ -14,7 +14,7 @@ export function getPosts(app: Application) {
       },
       {
         id: 2,
-        title: 'Post 1',
+        title: 'Post 2',
         author: {
           id: 1,
           photoURL: 'https://placekitten.com/200/300',
@@ -23,7 +23,7 @@ export function getPosts(app: Application) {
       },
       {
         id: 3,
-        title: 'Post 1',
+        title: 'Post 3',
         author: {
           id: 2,
           photoURL: 'https://placekitten.com/200/300',

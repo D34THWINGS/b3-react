@@ -4,7 +4,7 @@ import {findUserByEmail} from "../repositories/userRepository";
 
 export function postLogin(app: Application) {
   app.post(
-    '/login',
+    '/api/login',
     bodyParser.urlencoded(),
     async (req, res) => {
       try {
@@ -19,7 +19,7 @@ export function postLogin(app: Application) {
           user.id,
           {signed: true, httpOnly: true, sameSite: true}
         );
-        res.redirect('/')
+        res.send({ success: true })
       } catch (e) {
         console.error(e)
         res.status(500).send('Internal Server Error')

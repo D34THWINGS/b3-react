@@ -4,7 +4,7 @@ import {createUser} from "../repositories/userRepository";
 
 export function postRegister(app: Application) {
   app.post(
-    '/register',
+    '/api/register',
     bodyParser.urlencoded(),
     async (req, res) => {
       const {email, name} = req.body;
@@ -22,7 +22,7 @@ export function postRegister(app: Application) {
         user.id,
         { signed: true, httpOnly: true, sameSite: true }
       );
-      res.redirect('/');
+      res.send({ success: true });
     }
   )
 }

@@ -8,7 +8,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     loader: async () => {
-      const response = await fetch("/posts")
+      const response = await fetch("/api/v1/posts")
       return await response.json()
     },
     element: <Feed />
