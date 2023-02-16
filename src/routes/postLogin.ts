@@ -4,14 +4,14 @@ import {findUserByEmail} from "../repositories/userRepository";
 
 export function postLogin(app: Application) {
   app.post(
-    '/api/login',
-    bodyParser.urlencoded(),
+    '/api/v1/login',
+    bodyParser.json(),
     async (req, res) => {
       try {
         const email = req.body.email;
         const user = await findUserByEmail(email)
         if (!user) {
-          res.status(401).send('Invalid email');
+          res.status(401).send({ message: 'Invalid email'});
           return;
         }
         res.cookie(

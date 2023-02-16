@@ -6,7 +6,7 @@ export function authenticationMiddleware(
   next: NextFunction
 ) {
   if (!req.signedCookies.ssid) {
-    res.redirect('/login')
+    res.status(401).send({message: 'Unauthorized'})
     return
   }
   next()

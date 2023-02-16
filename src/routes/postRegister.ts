@@ -4,17 +4,17 @@ import {createUser} from "../repositories/userRepository";
 
 export function postRegister(app: Application) {
   app.post(
-    '/api/register',
-    bodyParser.urlencoded(),
+    '/api/v1/register',
+    bodyParser.json(),
     async (req, res) => {
       const {email, name} = req.body;
       if (!email || !name) {
-        res.status(400).send('Bad Request')
+        res.status(400).send({message: 'Bad Request'})
         return
       }
       const user = await createUser(email, name);
       if (!user) {
-        res.status(400).send('Email already used')
+        res.status(400).send({message: 'Email already used'})
         return
       }
       res.cookie(
