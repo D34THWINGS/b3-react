@@ -2,7 +2,12 @@ import { Form, Outlet, redirect } from 'react-router-dom'
 import { fetchWithErrorHandling } from '../../helpers/fetchWithErrorHandling'
 import { ActionFunctionArgs } from '@remix-run/router/utils'
 
-export type UserProfileData = { id: number; name: string; email: string }
+export type UserProfileData = {
+  id: number
+  name: string
+  email: string
+  photoURL: string
+}
 
 export async function userProfileLoader() {
   const response = await fetch('/api/v1/profile')
@@ -17,13 +22,7 @@ export async function updateUserProfileAction({ request }: ActionFunctionArgs) {
 
   const updatedUser = await fetchWithErrorHandling('/api/v1/profile', {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: formData.get('email'),
-      name: formData.get('name'),
-    }),
+    body: formData,
   })
 
   return { user: updatedUser }
@@ -44,9 +43,13 @@ export function UserProfileForm({ error, data }: { error?: Error; data?: UserPro
   return (
     <div>
       <h1>User profile</h1>
-      <Form method="put">
+
+      {data?.photoURL && <img src={`/api/uploads/${data?.photoURL}`} width={128} />}
+
+      <Form method="put" encType="multipart/form-data">
         <input type="email" name="email" defaultValue={data?.email} placeholder="Email..." />
         <input type="text" name="name" defaultValue={data?.name} placeholder="Name..." />
+        <input type="file" name="photo" placeholder="Profile picture" />
         {error && <p>{error.message}</p>}
         <button type="submit">Save</button>
       </Form>

@@ -1,9 +1,10 @@
 import { Application } from 'express-ws'
-import bodyParser from 'body-parser'
+import multer from 'multer'
+import path from 'path'
 import { updateUser } from '../repositories/userRepository'
 
 export function putUserProfile(app: Application) {
-  app.put('/api/v1/profile', bodyParser.json(), async (req, res) => {
+  app.put('/api/v1/profile', multer({ dest: 'uploads/' }).single('photo'), async (req, res) => {
     if (!req.signedCookies.ssid) {
       res.status(401).send({ message: 'Unauthorized' })
       return
@@ -14,7 +15,16 @@ export function putUserProfile(app: Application) {
       return
     }
 
-    const user = await updateUser(req.signedCookies.ssid, req.body.email, req.body.name)
+    let photoURL
+    if (req.file) {
+      photoURL = path.basename(req.file.path)
+    }
+
+    const user = await updateUser(req.signedCookies.ssid, {
+      email: req.body.email,
+      name: req.body.name,
+      photoURL,
+    })
 
     res.send(user)
   })

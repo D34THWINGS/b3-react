@@ -31,6 +31,7 @@ function main() {
   })
   app.use(cookieParser(SECRET_KEY))
   app.use(express.static(path.join(__dirname, '../public')))
+  app.use('/api/uploads', express.static(path.join(__dirname, '../uploads')))
 
   getLogin(app)
   postLogin(app)

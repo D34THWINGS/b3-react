@@ -33,15 +33,19 @@ export async function createUser(email: string, name: string) {
   })
 }
 
-export function updateUser(id: string, email: string, name: string) {
+export function updateUser(
+  id: string,
+  data: {
+    email: string
+    name: string
+    photoURL?: string
+  },
+) {
   return prisma.user.update({
     where: {
       id,
     },
-    data: {
-      email,
-      name,
-    },
+    data,
   })
 }
 
