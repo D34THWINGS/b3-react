@@ -16,6 +16,7 @@ import { getUserProfile } from './routes/getUserProfile'
 import { putUserProfile } from './routes/putUserProfile'
 import { getEvents } from './routes/getEvents'
 import { postPosts } from './routes/postPosts'
+import { postEvents } from './routes/postEvents'
 
 const SECRET_KEY = 'MySecretKeyIsAwesome'
 
@@ -46,6 +47,7 @@ function main() {
   putUserProfile(app)
   deleteUserProfile(app)
   getEvents(app)
+  postEvents(app)
 
   app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     console.error(error)
