@@ -1,9 +1,9 @@
 export function ChatMessage({
-                              message,
-                              author,
-                              timestamp,
-                              isOwnMessage,
-                            }: {
+  message,
+  author,
+  timestamp,
+  isOwnMessage,
+}: {
   // Message content
   message: string
   // Author of the message

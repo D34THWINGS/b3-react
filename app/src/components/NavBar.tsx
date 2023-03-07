@@ -20,6 +20,14 @@ export function NavBar() {
         }}>
         My Chat App
       </Link>
+      <Link
+        to="/profile"
+        style={{
+          color: 'white',
+          textDecoration: 'none'
+        }}>
+        Profile
+      </Link>
       <button
         style={{
           background: 'none',

@@ -11,6 +11,9 @@ import {getRegister} from "./routes/getRegister";
 import {postRegister} from "./routes/postRegister";
 import {getPosts} from "./routes/getPosts";
 import {postLogout} from "./routes/postLogout";
+import { deleteUserProfile } from './routes/deleteUserProfile'
+import { getUserProfile } from './routes/getUserProfile'
+import { putUserProfile } from './routes/putUserProfile'
 
 const SECRET_KEY = 'MySecretKeyIsAwesome'
 
@@ -36,6 +39,9 @@ function main() {
   getRoot(app)
   getWs(app, sockets)
   getPosts(app)
+  getUserProfile(app)
+  putUserProfile(app)
+  deleteUserProfile(app)
 
   app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     console.error(error)
