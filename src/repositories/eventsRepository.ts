@@ -12,5 +12,9 @@ export function createEvent(title: string, date: string, createdBy: User) {
 }
 
 export function findAllEvents() {
-  return prisma.event.findMany()
+  return prisma.event.findMany({
+    include: {
+      createdBy: true,
+    },
+  })
 }

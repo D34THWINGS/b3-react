@@ -5,8 +5,12 @@ import { addPostAction, Feed, feedLoader } from './screens/Feed'
 import { Register, registerAction } from './screens/Register'
 import { ErrorPage } from './components/ErrorPage'
 import { AppLayout } from './components/AppLayout'
-import { updateUserProfileAction, userProfileLoader } from './screens/UserProfile/UserProfileForm'
-import { Events, eventsLoader } from './screens/Events'
+import {
+  deleteUserProfileAction,
+  updateUserProfileAction,
+  userProfileLoader,
+} from './screens/UserProfile/UserProfileForm'
+import { addEventAction, Events, eventsLoader } from './screens/Events'
 import { UserProfile } from './screens/UserProfile/UserProfile'
 import { UserProfileError } from './screens/UserProfile/UserProfileError'
 
@@ -46,10 +50,18 @@ const router = createBrowserRouter([
         action: updateUserProfileAction,
         element: <UserProfile />,
         errorElement: <UserProfileError />,
+        children: [
+          {
+            path: '/profile/delete',
+            action: deleteUserProfileAction,
+            errorElement: <div>Oops, cannot delete account</div>,
+          },
+        ],
       },
       {
         path: '/events',
         loader: eventsLoader,
+        action: addEventAction,
         element: <Events />,
       },
     ],

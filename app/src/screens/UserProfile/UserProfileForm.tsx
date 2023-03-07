@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Form, useLoaderData, useNavigate, useRouteError } from 'react-router-dom'
+import { Form, Outlet, redirect } from 'react-router-dom'
 import { fetchWithErrorHandling } from '../../helpers/fetchWithErrorHandling'
 import { ActionFunctionArgs } from '@remix-run/router/utils'
 
@@ -30,11 +29,14 @@ export async function updateUserProfileAction({ request }: ActionFunctionArgs) {
   return { user: updatedUser }
 }
 
+export async function deleteUserProfileAction() {
+  await fetchWithErrorHandling('/api/v1/profile', {
+    method: 'DELETE',
+  })
+  return redirect('/login')
+}
+
 export function UserProfileForm({ error, data }: { error?: Error; data?: UserProfileData }) {
-  const navigate = useNavigate()
-
-  const [deleteError, setDeleteError] = useState<string | null>(null)
-
   if (!data && !error) {
     throw new Error('No data')
   }
@@ -50,25 +52,10 @@ export function UserProfileForm({ error, data }: { error?: Error; data?: UserPro
       </Form>
       <hr />
       <h2>Account management</h2>
-      <button
-        type="button"
-        onClick={async () => {
-          try {
-            await fetchWithErrorHandling('/api/v1/profile', {
-              method: 'DELETE',
-            })
-            // If everything went fine, navigate to the feed
-            navigate('/login')
-          } catch (e) {
-            if (e instanceof Error) {
-              setDeleteError(e.message)
-            }
-          }
-        }}
-      >
-        Delete account
-      </button>
-      {deleteError && <p>{deleteError}</p>}
+      <Form method="delete" action="delete">
+        <button type="submit">Delete account</button>
+      </Form>
+      <Outlet />
     </div>
   )
 }
