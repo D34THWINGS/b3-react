@@ -1,8 +1,9 @@
 import { Application } from 'express-ws'
-import { findUserById, updateUser } from '../repositories/userRepository'
+import bodyParser from 'body-parser'
+import { updateUser } from '../repositories/userRepository'
 
 export function putUserProfile(app: Application) {
-  app.put('/api/v1/profile', async (req, res) => {
+  app.put('/api/v1/profile', bodyParser.json(), async (req, res) => {
     if (!req.signedCookies.ssid) {
       res.status(401).send({ message: 'Unauthorized' })
       return

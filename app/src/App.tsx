@@ -1,11 +1,11 @@
 // App.tsx
-import {RouterProvider, createBrowserRouter} from "react-router-dom";
-import {Login} from "./screens/Login";
-import {Feed} from "./screens/Feed";
-import {Register} from "./screens/Register";
-import {ErrorPage} from "./components/ErrorPage";
-import {AppLayout} from "./components/AppLayout";
-import {UserProfile} from "./screens/UserProfile";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Login } from './screens/Login'
+import { Feed } from './screens/Feed'
+import { Register } from './screens/Register'
+import { ErrorPage } from './components/ErrorPage'
+import { AppLayout } from './components/AppLayout'
+import { UserProfile } from './screens/UserProfile'
 
 // Define the routing and how react router should behave according to
 // the current URL of the browser.
@@ -14,44 +14,47 @@ import {UserProfile} from "./screens/UserProfile";
 // the best match for the current URL.
 const router = createBrowserRouter([
   {
-    path: "/login",
-    element: <Login/>
+    path: '/login',
+    element: <Login />,
   },
   {
-    path: "/register",
-    element: <Register/>
+    path: '/register',
+    element: <Register />,
   },
   {
-    path: "/",
-    errorElement: <ErrorPage/>,
+    path: '/',
+    errorElement: <ErrorPage />,
     element: <AppLayout />,
 
     // If we're logged and trying to access any page bellow,
     // wrap them with the AppLayout component.
     children: [
       {
-        path: "/",
+        path: '/',
         async loader() {
-          const response = await fetch("/api/v1/posts")
+          const response = await fetch('/api/v1/posts')
           if (response.status === 401) {
-            throw new Response(
-              "Unauthorized", {status: 401}
-            );
+            throw new Response('Unauthorized', { status: 401 })
           }
           return await response.json()
         },
-        element: <Feed/>
+        element: <Feed />,
       },
       {
-        path: "/profile",
-        element: <UserProfile />
+        path: '/profile',
+        async loader() {
+          const response = await fetch('/api/v1/profile')
+          if (response.status === 401) {
+            throw new Response('Unauthorized', { status: 401 })
+          }
+          return await response.json()
+        },
+        element: <UserProfile />,
       },
-    ]
+    ],
   },
-]);
+])
 
 export function App() {
-  return (
-    <RouterProvider router={router}/>
-  )
+  return <RouterProvider router={router} />
 }

@@ -10,6 +10,7 @@ export function deleteUserProfile(app: Application) {
 
     await deleteUser(req.signedCookies.ssid)
 
+    res.clearCookie('ssid')
     res.send({ message: 'OK' })
   })
 }
