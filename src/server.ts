@@ -15,6 +15,7 @@ import { deleteUserProfile } from './routes/deleteUserProfile'
 import { getUserProfile } from './routes/getUserProfile'
 import { putUserProfile } from './routes/putUserProfile'
 import { getEvents } from './routes/getEvents'
+import { postPosts } from './routes/postPosts'
 
 const SECRET_KEY = 'MySecretKeyIsAwesome'
 
@@ -40,6 +41,7 @@ function main() {
   getRoot(app)
   getWs(app, sockets)
   getPosts(app)
+  postPosts(app)
   getUserProfile(app)
   putUserProfile(app)
   deleteUserProfile(app)

@@ -1,12 +1,14 @@
 // App.tsx
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Login } from './screens/Login'
-import { Feed, feedLoader } from './screens/Feed'
-import { Register } from './screens/Register'
+import { Login, loginAction } from './screens/Login'
+import { addPostAction, Feed, feedLoader } from './screens/Feed'
+import { Register, registerAction } from './screens/Register'
 import { ErrorPage } from './components/ErrorPage'
 import { AppLayout } from './components/AppLayout'
-import { UserProfile, userProfileLoader } from './screens/UserProfile'
+import { updateUserProfileAction, userProfileLoader } from './screens/UserProfile/UserProfileForm'
 import { Events, eventsLoader } from './screens/Events'
+import { UserProfile } from './screens/UserProfile/UserProfile'
+import { UserProfileError } from './screens/UserProfile/UserProfileError'
 
 // Define the routing and how react router should behave according to
 // the current URL of the browser.
@@ -16,10 +18,12 @@ import { Events, eventsLoader } from './screens/Events'
 const router = createBrowserRouter([
   {
     path: '/login',
+    action: loginAction,
     element: <Login />,
   },
   {
     path: '/register',
+    action: registerAction,
     element: <Register />,
   },
   {
@@ -33,12 +37,15 @@ const router = createBrowserRouter([
       {
         path: '/',
         loader: feedLoader,
+        action: addPostAction,
         element: <Feed />,
       },
       {
         path: '/profile',
         loader: userProfileLoader,
+        action: updateUserProfileAction,
         element: <UserProfile />,
+        errorElement: <UserProfileError />,
       },
       {
         path: '/events',

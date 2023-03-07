@@ -1,10 +1,10 @@
-import {prisma} from "./prisma";
+import { prisma } from './prisma'
 
 export function findUserByEmail(email: string) {
   return prisma.user.findUnique({
     where: {
-      email
-    }
+      email,
+    },
   })
 }
 export function findUserById(id: string) {
@@ -14,15 +14,12 @@ export function findUserById(id: string) {
 
   return prisma.user.findUnique({
     where: {
-      id
-    }
+      id,
+    },
   })
 }
 
-export async function createUser(
-  email: string,
-  name: string
-) {
+export async function createUser(email: string, name: string) {
   const existingUser = await findUserByEmail(email)
   if (existingUser) {
     return null
@@ -31,31 +28,27 @@ export async function createUser(
   return prisma.user.create({
     data: {
       email,
-      name
-    }
+      name,
+    },
   })
 }
 
-export function updateUser(
-  id: string,
-  email: string,
-  name: string
-) {
+export function updateUser(id: string, email: string, name: string) {
   return prisma.user.update({
     where: {
-      id
+      id,
     },
     data: {
       email,
-      name
-    }
+      name,
+    },
   })
 }
 
 export function deleteUser(id: string) {
-return prisma.user.delete({
+  return prisma.user.delete({
     where: {
-      id
-    }
+      id,
+    },
   })
 }
