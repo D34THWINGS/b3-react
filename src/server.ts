@@ -1,26 +1,27 @@
-import expressWs, {Application} from "express-ws";
-import express, {Request, Response, NextFunction} from "express";
+import expressWs, { Application } from 'express-ws'
+import express, { Request, Response, NextFunction } from 'express'
 import cookieParser from 'cookie-parser'
 import path from 'path'
-import {getLogin} from "./routes/getLogin";
-import {getRoot} from "./routes/getRoot";
-import {getWs} from "./routes/getWs";
-import {postLogin} from "./routes/postLogin";
-import {authenticationMiddleware} from "./middlewares/authenticationMiddleware";
-import {getRegister} from "./routes/getRegister";
-import {postRegister} from "./routes/postRegister";
-import {getPosts} from "./routes/getPosts";
-import {postLogout} from "./routes/postLogout";
+import { getLogin } from './routes/getLogin'
+import { getRoot } from './routes/getRoot'
+import { getWs } from './routes/getWs'
+import { postLogin } from './routes/postLogin'
+import { authenticationMiddleware } from './middlewares/authenticationMiddleware'
+import { getRegister } from './routes/getRegister'
+import { postRegister } from './routes/postRegister'
+import { getPosts } from './routes/getPosts'
+import { postLogout } from './routes/postLogout'
 import { deleteUserProfile } from './routes/deleteUserProfile'
 import { getUserProfile } from './routes/getUserProfile'
 import { putUserProfile } from './routes/putUserProfile'
+import { getEvents } from './routes/getEvents'
 
 const SECRET_KEY = 'MySecretKeyIsAwesome'
 
 function main() {
-  const app = express() as unknown as Application;
-  expressWs(app);
-  const sockets = new Map();
+  const app = express() as unknown as Application
+  expressWs(app)
+  const sockets = new Map()
 
   app.use((req, res, next) => {
     console.log(new Date().toISOString(), req.method, req.path)
@@ -42,6 +43,7 @@ function main() {
   getUserProfile(app)
   putUserProfile(app)
   deleteUserProfile(app)
+  getEvents(app)
 
   app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     console.error(error)
@@ -51,8 +53,8 @@ function main() {
   })
 
   app.listen(3000, () => {
-    console.log('Example app listening on port 3000!');
-  });
+    console.log('Example app listening on port 3000!')
+  })
 }
 
 main()

@@ -2,11 +2,21 @@ import { useState } from 'react'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { fetchWithErrorHandling } from '../helpers/fetchWithErrorHandling'
 
+type UserProfileData = { id: number; name: string; email: string }
+
+export async function userProfileLoader() {
+  const response = await fetch('/api/v1/profile')
+  if (response.status === 401) {
+    throw new Response('Unauthorized', { status: 401 })
+  }
+  return (await response.json()) as UserProfileData
+}
+
 export function UserProfile() {
   const navigate = useNavigate()
 
   // Data loaded from the router dataloader (App.tsx)
-  const data = useLoaderData() as { id: number; name: string; email: string }
+  const data = useLoaderData() as UserProfileData
 
   // Form state (local memory of the component)
   const [email, setEmail] = useState(data.email)

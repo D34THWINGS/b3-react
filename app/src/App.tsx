@@ -1,11 +1,12 @@
 // App.tsx
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Login } from './screens/Login'
-import { Feed } from './screens/Feed'
+import { Feed, feedLoader } from './screens/Feed'
 import { Register } from './screens/Register'
 import { ErrorPage } from './components/ErrorPage'
 import { AppLayout } from './components/AppLayout'
-import { UserProfile } from './screens/UserProfile'
+import { UserProfile, userProfileLoader } from './screens/UserProfile'
+import { Events, eventsLoader } from './screens/Events'
 
 // Define the routing and how react router should behave according to
 // the current URL of the browser.
@@ -31,25 +32,18 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        async loader() {
-          const response = await fetch('/api/v1/posts')
-          if (response.status === 401) {
-            throw new Response('Unauthorized', { status: 401 })
-          }
-          return await response.json()
-        },
+        loader: feedLoader,
         element: <Feed />,
       },
       {
         path: '/profile',
-        async loader() {
-          const response = await fetch('/api/v1/profile')
-          if (response.status === 401) {
-            throw new Response('Unauthorized', { status: 401 })
-          }
-          return await response.json()
-        },
+        loader: userProfileLoader,
         element: <UserProfile />,
+      },
+      {
+        path: '/events',
+        loader: eventsLoader,
+        element: <Events />,
       },
     ],
   },

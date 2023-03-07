@@ -1,4 +1,4 @@
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom'
 
 export function NavBar() {
   const navigate = useNavigate()
@@ -7,7 +7,7 @@ export function NavBar() {
       style={{
         padding: '1rem',
         background: '#333',
-        color: 'white'
+        color: 'white',
       }}
     >
       <Link
@@ -16,16 +16,27 @@ export function NavBar() {
           fontWeight: 'bold',
           fontSize: '1.5rem',
           color: 'white',
-          textDecoration: 'none'
-        }}>
+          textDecoration: 'none',
+        }}
+      >
         My Chat App
+      </Link>
+      <Link
+        to="/events"
+        style={{
+          color: 'white',
+          textDecoration: 'none',
+        }}
+      >
+        Events
       </Link>
       <Link
         to="/profile"
         style={{
           color: 'white',
-          textDecoration: 'none'
-        }}>
+          textDecoration: 'none',
+        }}
+      >
         Profile
       </Link>
       <button
@@ -37,12 +48,12 @@ export function NavBar() {
           cursor: 'pointer',
         }}
         onClick={async () => {
-          await fetch("/api/v1/logout", { method: "POST" })
-          navigate("/login")
+          await fetch('/api/v1/logout', { method: 'POST' })
+          navigate('/login')
         }}
       >
         Logout
       </button>
     </nav>
-  );
+  )
 }
