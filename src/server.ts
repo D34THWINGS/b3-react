@@ -1,6 +1,7 @@
 import expressWs, { Application } from 'express-ws'
 import express, { Request, Response, NextFunction } from 'express'
 import cookieParser from 'cookie-parser'
+import compression from 'compression'
 import path from 'path'
 import { getLogin } from './routes/getLogin'
 import { getRoot } from './routes/getRoot'
@@ -33,7 +34,8 @@ function main() {
     next()
   })
   app.use(cookieParser(SECRET_KEY))
-  app.use(express.static(path.join(__dirname, '../public')))
+  app.use(compression())
+  app.use(express.static(path.join(__dirname, '../app/dist')))
   app.use('/api/uploads', express.static(path.join(__dirname, '../uploads')))
 
   getLogin(app)

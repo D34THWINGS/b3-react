@@ -33,6 +33,7 @@ export function Chat({ userId }: { userId: string }) {
     <ChatWrapper>
       {messages.map(message => (
         <ChatMessage
+          key={message.data.date}
           author={message.data.user.name}
           message={message.data.msg}
           isOwnMessage={message.data.user.id === userId}
