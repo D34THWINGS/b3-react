@@ -14,7 +14,7 @@ type Message = {
   }
 }
 
-export function Chat() {
+export function Chat({ userId }: { userId: string }) {
   const [messages, setMessages] = React.useState<Message[]>([])
   const [message, setMessage] = useState('')
 
@@ -35,7 +35,7 @@ export function Chat() {
         <ChatMessage
           author={message.data.user.name}
           message={message.data.msg}
-          isOwnMessage
+          isOwnMessage={message.data.user.id === userId}
           timestamp={new Date(message.data.date).getTime()}
         />
       ))}

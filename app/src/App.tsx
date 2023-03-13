@@ -34,6 +34,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     errorElement: <ErrorPage />,
+    loader: userProfileLoader,
     element: <AppLayout />,
 
     // If we're logged and trying to access any page bellow,
