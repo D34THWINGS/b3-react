@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, Form, useLoaderData } from 'react-router-dom'
+import { ActionFunctionArgs, Form, Link, useLoaderData } from 'react-router-dom'
 import { fetchWithErrorHandling } from '../helpers/fetchWithErrorHandling'
 import { useState } from 'react'
 
@@ -73,7 +73,7 @@ export const Events = () => {
         <div key={event.id}>
           <h2>{event.title}</h2>
           <p>Date: {new Date(event.date).toLocaleDateString()}</p>
-          <p>Created by: {event.createdBy.name}</p>
+          <Link to={`/event/${event.id}`}>See details</Link>
         </div>
       ))}
     </>

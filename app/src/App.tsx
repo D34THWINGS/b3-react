@@ -13,6 +13,7 @@ import {
 import { addEventAction, Events, eventsLoader } from './screens/Events'
 import { UserProfile } from './screens/UserProfile/UserProfile'
 import { UserProfileError } from './screens/UserProfile/UserProfileError'
+import { Event, eventLoader } from './screens/Event'
 
 // Define the routing and how react router should behave according to
 // the current URL of the browser.
@@ -63,6 +64,11 @@ const router = createBrowserRouter([
         loader: eventsLoader,
         action: addEventAction,
         element: <Events />,
+      },
+      {
+        path: '/event/:eventId',
+        loader: eventLoader,
+        element: <Event />,
       },
     ],
   },
