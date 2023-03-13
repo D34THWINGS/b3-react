@@ -1,7 +1,7 @@
 // App.tsx
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Login, loginAction } from './screens/Login'
-import { addPostAction, Feed, feedLoader } from './screens/Feed'
+import { addPostAction, Feed } from './screens/Feed'
 import { Register, registerAction } from './screens/Register'
 import { ErrorPage } from './components/ErrorPage'
 import { AppLayout } from './components/AppLayout'
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        loader: feedLoader,
+        // loader: feedLoader,
         action: addPostAction,
         element: <Feed />,
       },

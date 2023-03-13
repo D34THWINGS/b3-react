@@ -1,7 +1,8 @@
 import { Title } from '../components/Title'
-import { ActionFunctionArgs, Form, useLoaderData } from 'react-router-dom'
+import { ActionFunctionArgs, Form } from 'react-router-dom'
 import { fetchWithErrorHandling } from '../helpers/fetchWithErrorHandling'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { ErrorPage } from '../components/ErrorPage'
 
 type FeedData = { id: number; title: string; createdAt: string }[]
 
@@ -28,9 +29,39 @@ export async function addPostAction({ request }: ActionFunctionArgs) {
 }
 
 export function Feed() {
-  const data = useLoaderData() as FeedData
+  const [data, setData] = useState<FeedData | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const hasFetched = useRef(false)
+  useEffect(() => {
+    if (hasFetched.current) {
+      return
+    }
+
+    async function load() {
+      setLoading(true)
+      try {
+        setData(await fetchWithErrorHandling(`/api/v1/posts`))
+      } catch (e) {
+        setError(e instanceof Error ? e.message : 'Something went wrong')
+      }
+      setLoading(false)
+    }
+
+    load()
+    hasFetched.current = true
+  }, [])
 
   const [sortedBy, setSortedBy] = useState<'date' | 'name'>('date')
+
+  if (loading || !data) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    return <ErrorPage />
+  }
 
   const sortedData = data.sort((a, b) => {
     if (sortedBy === 'name') {

@@ -18,3 +18,14 @@ export function findAllEvents() {
     },
   })
 }
+
+export function findEventById(id: string) {
+  return prisma.event.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      createdBy: true,
+    },
+  })
+}
