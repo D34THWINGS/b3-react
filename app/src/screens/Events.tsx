@@ -1,6 +1,7 @@
 import { ActionFunctionArgs, Form, Link, useLoaderData } from 'react-router-dom'
 import { fetchWithErrorHandling } from '../helpers/fetchWithErrorHandling'
 import { useState } from 'react'
+import { EventForm } from '../components/Forms/EventForm'
 
 type EventsData = {
   id: number
@@ -55,9 +56,7 @@ export const Events = () => {
       <h1>Events</h1>
 
       <Form method="post">
-        <input type="text" name="title" placeholder="Title of the event 📆" />
-        <input type="date" name="date" />
-        <button type="submit">Submit</button>
+        <EventForm />
       </Form>
 
       <p>

@@ -1,8 +1,6 @@
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from 'react'
 
-export function ChatWrapper({children}: {
-  children: ReactNode
-}) {
+export function ChatWrapper({ children }: { children: ReactNode }) {
   return (
     <div
       style={{
@@ -28,5 +26,5 @@ export function ChatWrapper({children}: {
     >
       {children}
     </div>
-  );
+  )
 }

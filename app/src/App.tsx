@@ -13,7 +13,7 @@ import {
 import { addEventAction, Events, eventsLoader } from './screens/Events'
 import { UserProfile } from './screens/UserProfile/UserProfile'
 import { UserProfileError } from './screens/UserProfile/UserProfileError'
-import { Event, eventLoader } from './screens/Event'
+import { deleteEventAction, Event, eventLoader, updateEventAction } from './screens/Event'
 
 // Define the routing and how react router should behave according to
 // the current URL of the browser.
@@ -68,7 +68,15 @@ const router = createBrowserRouter([
       {
         path: '/event/:eventId',
         loader: eventLoader,
+        action: updateEventAction,
         element: <Event />,
+        children: [
+          {
+            path: '/event/:eventId/delete',
+            action: deleteEventAction,
+            errorElement: <div>Oops, cannot delete event</div>,
+          },
+        ],
       },
     ],
   },
